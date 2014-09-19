@@ -1,0 +1,18 @@
+{
+	"name": "padavvan/yii2-placer",
+	"description": "Добавление виджетов в коллекции, вывод рендеринг коллекций в определенных местах шаблона",
+	"type": "yii2-extension",
+	"keywords": ["yii2","extension"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Koltsov Oleg",
+			"email": "liloleg25@gmail.com"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"padavvan\\placer\\": ""
+		}
+	}
+}
