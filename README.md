@@ -28,4 +28,17 @@ Usage
 Once the extension is installed, simply use it in your code by  :
 
 ```php
-<?= \padavvan\placer\AutoloadExample::widget(); ?>```
+<?php
+// Controller
+Yii::$app->placer->createPlace('aside');
+Yii::$app->placer->aside->push('block1', 'content');
+
+// View1
+Yii::$app->placer->aside->push('block2', 'content');
+
+// ...
+
+// Layout
+Yii::$app->placer->aside->renderAll();
+?>
+```
