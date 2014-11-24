@@ -33,22 +33,22 @@ use padavvan\placer\Portlet;
 use padavvan\placer\Collection;
 use padavvan\placer\RouteDependency;
 
-$portlet1 = new Portlet('portlet1', ['content' => '#1 Portlet']);
-$portlet2 = new Portlet('portlet2', ['content' => '#2 Portlet']);
-$portlet3 = new Portlet('portlet3', ['content' => '#3 Portlet']);
+$portlet1 = new Portlet(['name' => 'portlet1', 'content' => '#1 Portlet']);
+$portlet2 = new Portlet(['name' => 'portlet2', 'content' => '#2 Portlet']);
+$portlet3 = new Portlet(['name' => 'portlet3', 'content' => '#3 Portlet']);
 
 // main collection
 $placer = new Collection('placer');
 
-$subTop = new Collection('subTop', ['tag' => 'div', 'options' => ['class' => 'well']]);
+$subTop = new Collection(['name' => 'subTop', 'tag' => 'div', 'options' => ['class' => 'well']]);
 $subTop->push($portlet1);
 $subTop->push($portlet2);
 
-$top = new Collection('top', ['tag' => 'section']);
+$top = new Collection(['name' => 'top', 'tag' => 'section']);
 $top->push($portlet3);
 $top->push($subTop);
 
-$bottom = new Collection('bottom', ['tag' => 'div', 'options' => ['class' => 'footer']]);
+$bottom = new Collection(['name' => 'bottom', 'tag' => 'div', 'options' => ['class' => 'footer']]);
 $bottom->dependency = [
 	// view on site/about, site/info, etc
 	new RouteDependency('/site/*'),
