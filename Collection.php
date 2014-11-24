@@ -27,6 +27,22 @@ class Collection extends AbstractPlace
 	}
 
 	/**
+	 * @param $config
+	 */
+	public function pushPortlet($config)
+	{
+		$this->push(Portlet::create($config));
+	}
+
+	/**
+	 * @param $config
+	 */
+	public function pushCollection($config)
+	{
+		$this->push(Collection::create($config));
+	}
+
+	/**
 	 * @inheritdoc
 	 */
 	public function remove(AbstractPlace $place)
