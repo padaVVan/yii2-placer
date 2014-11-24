@@ -11,7 +11,7 @@ abstract class AbstractPlace extends \yii\base\Object
 	 * Place name
 	 * @var string
 	 */
-	protected $name;
+	protected $name = null;
 
 	/**
 	 * Wrap tag name
@@ -31,14 +31,12 @@ abstract class AbstractPlace extends \yii\base\Object
 	private $_dependencies = null;
 
 	/**
-	 * @param string $name
-	 * @param array $config
+	 * @inheritdoc
 	 */
-	public function __construct($name, $config = [])
+	public function init()
 	{
-		$this->name = $name;
-
-		parent::__construct($config);
+		if ($this->name === null)
+			throw new InvalidConfigException('Must name');
 	}
 
 	/**
@@ -76,6 +74,15 @@ abstract class AbstractPlace extends \yii\base\Object
 	}
 
 	/**
+	 * Name setter
+	 * @param string $value
+	 */
+	public function setName($value)
+	{
+		$this->name = $value;
+	}
+
+	/**
 	 * Display place or not.
 	 * For this pass on all the dependencies and evaluate the value.
 	 * If at least one dependency is not satisfied then returns false.
@@ -92,5 +99,4 @@ abstract class AbstractPlace extends \yii\base\Object
 		}
 		return $evaluate;
 	}
-
 }

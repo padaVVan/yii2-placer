@@ -55,4 +55,13 @@ class Collection extends AbstractPlace
 		else
 			return Html::tag($this->tag, $out, $this->options);
 	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function __get($name) {
+		if (isset($this->_children[$name]))
+			return $this->_children[$name];
+		else parent::__get($name);
+	}
 }
