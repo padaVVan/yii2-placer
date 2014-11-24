@@ -62,5 +62,8 @@ $placer->push($top);
 $placer->push($bottom);
 
 echo $placer->render();
+// or
+echo $placer->top->render();
+echo $placer->bottom->render();
 ?>
 ```
