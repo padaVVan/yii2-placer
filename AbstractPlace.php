@@ -56,19 +56,27 @@ abstract class AbstractPlace extends \yii\base\Object
 
 	/**
 	 * Dependency setter
-	 * @param $values
+	 * @param mixed $values
 	 * @return $this
 	 * @throws InvalidConfigException
 	 * @internal param $value
 	 */
 	public function setDependency($values)
 	{
-		foreach ($values as $value) {
+		if ($values instanceof Dependency) {
+			$deps[] = $values;
+		}
+		elseif(is_array($values))
+			$deps = $values;
+		else
+			return $this;
+
+		foreach ($deps as $value) {
 			if (!($value instanceof Dependency))
 				throw new InvalidConfigException('Param must be a Dependency object');
 		}
 
-		$this->_dependencies = (array)$values;
+		$this->_dependencies = $deps;
 
 		return $this;
 	}

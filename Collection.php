@@ -24,6 +24,7 @@ class Collection extends AbstractPlace
 	public function push(AbstractPlace $place)
 	{
 		$this->_children[$place->name] = $place;
+		return $this;
 	}
 
 	/**
@@ -31,7 +32,7 @@ class Collection extends AbstractPlace
 	 */
 	public function pushPortlet($config)
 	{
-		$this->push(Portlet::create($config));
+		return $this->push(Portlet::create($config));
 	}
 
 	/**
@@ -39,7 +40,7 @@ class Collection extends AbstractPlace
 	 */
 	public function pushCollection($config)
 	{
-		$this->push(Collection::create($config));
+		return $this->push(Collection::create($config));
 	}
 
 	/**
