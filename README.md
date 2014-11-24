@@ -35,14 +35,17 @@ use padavvan\placer\RouteDependency;
 
 $portlet1 = new Portlet(['name' => 'portlet1', 'content' => '#1 Portlet']);
 $portlet2 = new Portlet(['name' => 'portlet2', 'content' => '#2 Portlet']);
+$portlet2->wrap('section', ['class' => 'portlet']);
 $portlet3 = new Portlet(['name' => 'portlet3', 'content' => '#3 Portlet']);
 
 // main collection
 $placer = new Collection('placer');
 
-$subTop = new Collection(['name' => 'subTop', 'tag' => 'div', 'options' => ['class' => 'well']]);
-$subTop->push($portlet1);
-$subTop->push($portlet2);
+$subTop = Collection::create(['name' => 'subTop']);
+$subTop
+	->push($portlet1)
+	->push($portlet2)
+	->wrap('div', ['class' => 'well']);
 
 $top = new Collection(['name' => 'top', 'tag' => 'section']);
 $top->push($portlet3);

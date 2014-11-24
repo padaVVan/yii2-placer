@@ -59,9 +59,20 @@ class Collection extends AbstractPlace
 	/**
 	 * @inheritdoc
 	 */
-	public function __get($name) {
-		if (isset($this->_children[$name]))
+	public function __get($name)
+	{
+		$getter = 'get' . $name;
+
+		if (method_exists($this, $getter)) {
+			return $this->$getter();
+
+		} elseif (isset($this->_children[$name])) {
 			return $this->_children[$name];
-		else parent::__get($name);
+
+		} else {
+			$collection = static::create(['name' => $name]);
+			$this->push($collection);
+			return $collection;
+		}
 	}
 }

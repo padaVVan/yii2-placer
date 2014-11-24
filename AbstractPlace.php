@@ -30,9 +30,6 @@ abstract class AbstractPlace extends \yii\base\Object
 	 */
 	private $_dependencies = null;
 
-	/**
-	 * @inheritdoc
-	 */
 	public function init()
 	{
 		if ($this->name === null)
@@ -60,6 +57,7 @@ abstract class AbstractPlace extends \yii\base\Object
 	/**
 	 * Dependency setter
 	 * @param $values
+	 * @return $this
 	 * @throws InvalidConfigException
 	 * @internal param $value
 	 */
@@ -71,6 +69,8 @@ abstract class AbstractPlace extends \yii\base\Object
 		}
 
 		$this->_dependencies = (array)$values;
+
+		return $this;
 	}
 
 	/**
@@ -98,5 +98,27 @@ abstract class AbstractPlace extends \yii\base\Object
 			$evaluate = $evaluate && $dependency->evaluateDependency();
 		}
 		return $evaluate;
+	}
+
+	/**
+	 * @param $tagName
+	 * @param $options
+	 * @return $this
+	 */
+	public function wrap($tagName, $options)
+	{
+		$this->tag = $tagName;
+		$this->options = (array)$options;
+
+		return $this;
+	}
+
+	/**
+	 * @param $config
+	 * @return static
+	 */
+	public static function create($config)
+	{
+		return new static($config);
 	}
 }
