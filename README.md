@@ -29,16 +29,38 @@ Once the extension is installed, simply use it in your code by  :
 
 ```php
 <?php
-// Controller
-Yii::$app->placer->createPlace('aside');
-Yii::$app->placer->aside->push('block1', 'content');
+use padavvan\placer\Portlet;
+use padavvan\placer\Collection;
+use padavvan\placer\RouteDependency;
 
-// View1
-Yii::$app->placer->aside->push('block2', 'content');
+$portlet1 = new Portlet('portlet1', ['content' => '#1 Portlet']);
+$portlet2 = new Portlet('portlet2', ['content' => '#2 Portlet']);
+$portlet3 = new Portlet('portlet3', ['content' => '#3 Portlet']);
 
-// ...
+// main collection
+$placer = new Collection('placer');
 
-// Layout
-Yii::$app->placer->aside->renderAll();
+$subTop = new Collection('subTop', ['tag' => 'div', 'options' => ['class' => 'well']]);
+$subTop->push($portlet1);
+$subTop->push($portlet2);
+
+$top = new Collection('top', ['tag' => 'section']);
+$top->push($portlet3);
+$top->push($subTop);
+
+$bottom = new Collection('bottom', ['tag' => 'div', 'options' => ['class' => 'footer']]);
+$bottom->dependency = [
+	// view on site/about, site/info, etc
+	new RouteDependency('/site/*'),
+	// and not view on site/contacts
+	new RouteDependency('/site/contacts', true)
+	];
+	
+$bottom->push($portlet1);
+
+$placer->push($top);
+$placer->push($bottom);
+
+echo $placer->render();
 ?>
 ```
