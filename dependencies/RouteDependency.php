@@ -41,8 +41,9 @@ class RouteDependency extends Dependency
 
 			$pattern = $this->normalizeRoute($route);
 
-			if (preg_match('/' . $pattern . '/', $currentRoute))
-				return !$this->_except;
+			if (preg_match('/' . $pattern . '/', $currentRoute)) {
+							return !$this->_except;
+			}
 
 		}
 		return $this->_except;

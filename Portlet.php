@@ -34,12 +34,14 @@ class Portlet extends AbstractPlace
 	 */
 	public function render()
 	{
-		if (!$this->isView())
-			return;
+		if (!$this->isView()) {
+					return;
+		}
 
-		if (null === $this->tag)
-			return $this->content;
-		else
-			return Html::tag($this->tag, $this->content, $this->options);
+		if (null === $this->tag) {
+					return $this->content;
+		} else {
+					return Html::tag($this->tag, $this->content, $this->options);
+		}
 	}
 }
