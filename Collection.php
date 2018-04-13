@@ -56,21 +56,24 @@ class Collection extends AbstractPlace
 	 */
 	public function render()
 	{
-		if (!$this->isView())
-			return;
+		if (!$this->isView()) {
+					return;
+		}
 
 		$collection = [];
 
 		/** @var AbstractPlace $child */
-		foreach ($this->_children as $child)
-			$collection[] = $child->render();
+		foreach ($this->_children as $child) {
+					$collection[] = $child->render();
+		}
 
 		$out = implode($this->delimiter, $collection);
 
-		if (null === $this->tag)
-			return $out;
-		else
-			return Html::tag($this->tag, $out, $this->options);
+		if (null === $this->tag) {
+					return $out;
+		} else {
+					return Html::tag($this->tag, $out, $this->options);
+		}
 	}
 
 	/**

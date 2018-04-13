@@ -32,8 +32,9 @@ abstract class AbstractPlace extends \yii\base\Object
 
 	public function init()
 	{
-		if ($this->name === null)
-			throw new InvalidConfigException('Must name');
+		if ($this->name === null) {
+					throw new InvalidConfigException('Must name');
+		}
 	}
 
 	/**
@@ -66,7 +67,7 @@ abstract class AbstractPlace extends \yii\base\Object
 		if ($values instanceof Dependency) {
 			$deps[] = $values;
 		}
-		elseif(is_array($values))
+		elseif (is_array($values))
 			$deps = $values;
 		else
 			return $this;
@@ -98,8 +99,9 @@ abstract class AbstractPlace extends \yii\base\Object
 	 */
 	protected function isView()
 	{
-		if ($this->_dependencies === null)
-			return true;
+		if ($this->_dependencies === null) {
+					return true;
+		}
 
 		$evaluate = true;
 		foreach ($this->_dependencies as $dependency) {
