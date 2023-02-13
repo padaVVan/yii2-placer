@@ -2,9 +2,9 @@
 
 namespace padavvan\placer\dependencies;
 
-use yii\base\Object;
+use yii\base\BaseObject;
 
-abstract class Dependency extends Object
+abstract class Dependency extends BaseObject
 {
 
 	/**

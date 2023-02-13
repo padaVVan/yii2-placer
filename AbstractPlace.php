@@ -5,7 +5,7 @@ namespace padavvan\placer;
 use padavvan\placer\dependencies\Dependency;
 use yii\base\InvalidConfigException;
 
-abstract class AbstractPlace extends \yii\base\Object
+abstract class AbstractPlace extends \yii\base\BaseObject
 {
 	/**
 	 * Place name
