@@ -7,128 +7,125 @@ use yii\base\InvalidConfigException;
 
 abstract class AbstractPlace extends \yii\base\BaseObject
 {
-	/**
-	 * Place name
-	 * @var string
-	 */
-	protected $name = null;
+    /**
+     * Place name
+     * @var string
+     */
+    protected $name = null;
 
-	/**
-	 * Wrap tag name
-	 * @var null|string
-	 */
-	public $tag = null;
+    /**
+     * Wrap tag name
+     * @var null|string
+     */
+    public $tag = null;
 
-	/**
-	 * Wrap tag config
-	 * @var array
-	 */
-	public $options = [];
+    /**
+     * Wrap tag config
+     * @var array
+     */
+    public $options = [];
 
-	/**
-	 * @var \padavvan\placer\dependencies\Dependency[]
-	 */
-	private $_dependencies = null;
+    /**
+     * @var \padavvan\placer\dependencies\Dependency[]
+     */
+    private ?array $_dependencies = null;
 
-	public function init()
-	{
-		if ($this->name === null) {
-					throw new InvalidConfigException('Must name');
-		}
-	}
+    public function init()
+    {
+        if ($this->name === null) {
+            throw new InvalidConfigException('Must name');
+        }
+    }
 
-	/**
-	 * Add new place
-	 * @param AbstractPlace $place
-	 */
-	public abstract function push(AbstractPlace $place);
+    /**
+     * Add new place
+     */
+    abstract public function push(AbstractPlace $place);
 
-	/**
-	 * Remove place
-	 * @param AbstractPlace $place
-	 */
-	public abstract function remove(AbstractPlace $place);
+    /**
+     * Remove place
+     */
+    abstract public function remove(AbstractPlace $place);
 
-	/**
-	 * Render place
-	 * @return string|void
-	 */
-	public abstract function render();
+    /**
+     * Render place
+     * @return string|void
+     */
+    abstract public function render();
 
-	/**
-	 * Dependency setter
-	 * @param mixed $values
-	 * @return $this
-	 * @throws InvalidConfigException
-	 * @internal param $value
-	 */
-	public function setDependency($values)
-	{
-		if ($values instanceof Dependency) {
-			$deps[] = $values;
-		}
-		elseif (is_array($values))
-			$deps = $values;
-		else
-			return $this;
+    /**
+     * Dependency setter
+     * @return $this
+     * @throws InvalidConfigException
+     */
+    public function setDependency(mixed $values)
+    {
+        if ($values instanceof Dependency) {
+            $deps[] = $values;
+        } elseif (is_array($values)) {
+            $deps = $values;
+        } else {
+            return $this;
+        }
 
-		foreach ($deps as $value) {
-			if (!($value instanceof Dependency))
-				throw new InvalidConfigException('Param must be a Dependency object');
-		}
+        foreach ($deps as $value) {
+            if (!($value instanceof Dependency)) {
+                throw new InvalidConfigException('Param must be a Dependency object');
+            }
+        }
 
-		$this->_dependencies = $deps;
+        $this->_dependencies = $deps;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Name setter
-	 * @param string $value
-	 */
-	public function setName($value)
-	{
-		$this->name = $value;
-	}
+    /**
+     * Name setter
+     * @param string $value
+     */
+    public function setName($value)
+    {
+        $this->name = $value;
+    }
 
-	/**
-	 * Display place or not.
-	 * For this pass on all the dependencies and evaluate the value.
-	 * If at least one dependency is not satisfied then returns false.
-	 * @return bool
-	 */
-	protected function isView()
-	{
-		if ($this->_dependencies === null) {
-					return true;
-		}
+    /**
+     * Display place or not.
+     * For this pass on all the dependencies and evaluate the value.
+     * If at least one dependency is not satisfied then returns false.
+     * @return bool
+     */
+    protected function isView()
+    {
+        if ($this->_dependencies === null) {
+            return true;
+        }
 
-		$evaluate = true;
-		foreach ($this->_dependencies as $dependency) {
-			$evaluate = $evaluate && $dependency->evaluateDependency();
-		}
-		return $evaluate;
-	}
+        $evaluate = true;
+        foreach ($this->_dependencies as $dependency) {
+            $evaluate = $evaluate && $dependency->evaluateDependency();
+        }
+        return $evaluate;
+    }
 
-	/**
-	 * @param $tagName
-	 * @param $options
-	 * @return $this
-	 */
-	public function wrap($tagName, $options)
-	{
-		$this->tag = $tagName;
-		$this->options = (array)$options;
+    /**
+     * @param $tagName
+     * @param $options
+     * @return $this
+     */
+    public function wrap($tagName, $options)
+    {
+        $this->tag = $tagName;
+        $this->options = (array)$options;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param $config
-	 * @return static
-	 */
-	public static function create($config)
-	{
-		return new static($config);
-	}
+    /**
+     * @param $config
+     * @return static
+     */
+    public static function create($config)
+    {
+        return new static($config);
+    }
 }
