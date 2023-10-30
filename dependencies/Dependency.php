@@ -6,15 +6,14 @@ use yii\base\BaseObject;
 
 abstract class Dependency extends BaseObject
 {
+    /**
+     * Вычисление зависимости
+     * @return bool
+     */
+    public function evaluateDependency()
+    {
+        return (bool)$this->getResult();
+    }
 
-	/**
-	 * Вычисление зависимости
-	 * @return bool
-	 */
-	public function evaluateDependency()
-	{
-		return (bool)$this->getResult();
-	}
-
-	abstract protected function getResult();
+    abstract protected function getResult();
 }

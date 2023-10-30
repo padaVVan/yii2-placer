@@ -29,6 +29,7 @@ Once the extension is installed, simply use it in your code by  :
 
 ```php
 <?php
+
 use padavvan\placer\Portlet;
 use padavvan\placer\Collection;
 use padavvan\placer\RouteDependency;
@@ -58,7 +59,7 @@ $bottom->dependency = [
 	// and not view on site/contacts
 	new RouteDependency('/site/contacts', true)
 	];
-	
+
 $bottom->push($portlet1);
 
 $placer->push($top);
@@ -68,5 +69,4 @@ echo $placer->render();
 // or
 echo $placer->top->render();
 echo $placer->bottom->render();
-?>
 ```
